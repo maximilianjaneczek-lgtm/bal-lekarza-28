@@ -8,9 +8,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Bal 2028">
     <title>Bal Lekarza 2028 - aplikacja absolwenta</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/assets/icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icon.svg">
     <style>
       .hidden { display: none !important; }
       .file-warning { margin: 12px; border: 1px solid #c8a85c; border-radius: 8px; padding: 12px 14px; color: #173d35; background: #fff8eb; font: 700 14px system-ui, sans-serif; }
@@ -19,7 +19,7 @@
       .auth-art { overflow: hidden; border-radius: 8px; background: #fffdf8; box-shadow: 0 20px 60px rgba(25, 26, 41, 0.12); }
       .auth-art img { width: 100%; height: 100%; object-fit: cover; }
       .auth-panel { display: flex; flex-direction: column; justify-content: center; }
-      .brand-mark { display: grid; place-items: center; width: 72px; height: 72px; border: 1px solid #c8a85c; border-radius: 24px 24px 16px 16px; color: #173d35; background: #fffdf8; font: 800 24px Georgia, serif; }
+      .brand-mark { display: grid; place-items: center; width: 72px; height: 72px; border: 1px solid #c8a85c; border-radius: 24px 24px 16px 16px; color: #173d35; background: #fffdf8; font: 800 24p[...]
       h1, h2, h3 { color: #173d35; font-family: Georgia, serif; }
       h1 { margin: 0; font-size: clamp(46px, 7vw, 84px); line-height: 0.96; }
       .lead { color: #68736f; line-height: 1.6; }
@@ -44,13 +44,13 @@
         }
       });
     </script>
-    <link rel="stylesheet" href="/app.css?v=29">
+    <link rel="stylesheet" href="app.css?v=29">
   </head>
   <body>
     <div class="app-shell">
       <section id="auth-screen" class="auth-screen">
         <div class="auth-art" aria-hidden="true">
-          <img class="hero-image" src="/assets/hero-texture.png" alt="">
+          <img class="hero-image" src="assets/hero-texture.png" alt="">
         </div>
         <div class="auth-panel">
           <div class="brand-lockup">
@@ -196,7 +196,7 @@
         <main>
           <section id="view-dashboard" class="view active">
             <div class="hero-panel">
-              <img class="hero-image" src="/assets/hero-texture.png" alt="">
+              <img class="hero-image" src="assets/hero-texture.png" alt="">
               <div class="hero-content">
                 <p class="eyebrow" data-setting="heroTagline">Konto absolwenta</p>
                 <h2 id="welcome-title">Dobry wieczór</h2>
@@ -793,7 +793,7 @@
                       </label>
                       <label>
                         Teksty / sekcje infopaku
-                        <textarea name="sectionsText" rows="10" placeholder="Dress code | Black tie lub elegancki strój wieczorowy&#10;Transport | Informacje o dojeździe i odjazdach"></textarea>
+                        <textarea name="sectionsText" rows="10" placeholder="Dress code | Black tie lub elegancki strój wieczorowy&#10;Transport | Informacje o dojeździe i odjazdach"></textarea[...]
                       </label>
                     </div>
                   </section>
@@ -809,7 +809,7 @@
                     <label>Regulamin / zgoda przy rejestracji<textarea name="termsText" rows="4"></textarea></label>
                     <label>
                       Słownik napisów
-                      <textarea name="interfaceTexts" rows="8" placeholder="welcomeTitle | Cześć, {name}&#10;seatSearchPlaceholder | Szukaj osoby, stołu lub sali&#10;adminTitle | Centrum dowodzenia"></textarea>
+                      <textarea name="interfaceTexts" rows="8" placeholder="welcomeTitle | Cześć, {name}&#10;seatSearchPlaceholder | Szukaj osoby, stołu lub sali&#10;adminTitle | Centrum dowod[...]
                     </label>
                     <div class="status-key-guide">
                       <div><code>paymentCompleteOk</code><span>zielony status, gdy zaliczka i obie wpłaty są potwierdzone</span></div>
@@ -823,7 +823,7 @@
                     </div>
                     <label>
                       Teksty statusów
-                      <textarea name="statusTexts" rows="12" placeholder="paymentCompleteOk | Wpłaty kompletne&#10;paymentCompleteBad | Wpłaty do uzupełnienia&#10;paymentPaid | Opłacona&#10;paymentPending | Do potwierdzenia&#10;paymentDue | Do wpłaty&#10;seatAssigned | Miejsce przydzielone&#10;seatPending | Miejsce oczekuje&#10;seatingPreparing | Plan stołów w przygotowaniu&#10;registrationPending | Nowy zapis - do zatwierdzenia&#10;transportOwnStatus | Dojazd własny"></textarea>
+                      <textarea name="statusTexts" rows="12" placeholder="paymentCompleteOk | Wpłaty kompletne&#10;paymentCompleteBad | Wpłaty do uzupełnienia&#10;paymentPaid | Opłacona&#10;p[...]
                     </label>
                   </section>
                   <button class="secondary-action" type="submit">Zapisz wszystkie zmiany</button>
@@ -887,7 +887,7 @@
                   </div>
                   <label>
                     CSV z banku
-                    <textarea id="bank-import" rows="7" placeholder="Wklej wyciąg CSV. System szuka numeru albumu, emaila albo imienia i nazwiska w tytule przelewu. Typ wpłaty rozpoznaje po słowach: zaliczka, wpłata 1, wpłata 2, transport albo po kwocie wpisanej wyżej."></textarea>
+                    <textarea id="bank-import" rows="7" placeholder="Wklej wyciąg CSV. System szuka numeru albumu, emaila albo imienia i nazwiska w tytule przelewu. Typ wpłaty rozpoznaje po sł[...]
                   </label>
                   <button id="bank-import-button" class="secondary-action" type="button">Sprawdź i zaksięguj wpływy</button>
                   <div id="bank-import-result" class="bank-import-result"></div>
@@ -923,6 +923,6 @@
 
       <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
     </div>
-    <script src="/app.js?v=29" type="module"></script>
+    <script src="app.js?v=29" type="module"></script>
   </body>
 </html>
