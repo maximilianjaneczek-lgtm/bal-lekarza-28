@@ -17,6 +17,11 @@ if (!fs.existsSync(DATA_DIR)) {
 
 const DB_FILE = path.join(DATA_DIR, 'app.json');
 
+// Hash password (simple - use bcrypt in production)
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
+
 // Load data from file or initialize defaults
 function loadData() {
   try {
@@ -73,7 +78,7 @@ function loadData() {
     admin: {
       users: [
         {
-          id: crypto.randomBytes(8).toString('hex'),
+          id: "admin-001",
           email: 'admin@example.com',
           passwordHash: hashPassword('Admin2028!A1'),
           role: 'admin',
@@ -112,11 +117,6 @@ function saveData(data) {
     console.error('Error saving data:', e);
     return false;
   }
-}
-
-// Hash password (simple - use bcrypt in production)
-function hashPassword(password) {
-  return crypto.createHash('sha256').update(password).digest('hex');
 }
 
 // Load app data
@@ -222,6 +222,7 @@ const server = http.createServer((req, res) => {
         // Find user
         const user = appData.admin.users.find(u => u.email === email);
         if (!user || user.passwordHash !== hashPassword(password)) {
+          console.log(`Login failed for ${email}. Expected hash: ${hashPassword(password)}, Got: ${user?.passwordHash}`);
           return jsonResponse(res, { error: 'Invalid email or password' }, 401);
         }
         
@@ -674,4 +675,5 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}, basePath=${BASE_PATH || '/'} `);
   console.log(`Database: ${DB_FILE}`);
+  console.log(`Admin login: admin@example.com / Admin2028!A1`);
 });
