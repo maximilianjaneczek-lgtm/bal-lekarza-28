@@ -1,0 +1,18 @@
+{
+  "name": "Bal Lekarza 2028",
+  "short_name": "Bal",
+  "description": "Konto absolwenta, plan stolow, infopak i panel administratora Bal Lekarza 2028.",
+  "start_url": "/bal-lekarza-28",
+  "display": "standalone",
+  "background_color": "#fff8eb",
+  "theme_color": "#fff8eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
