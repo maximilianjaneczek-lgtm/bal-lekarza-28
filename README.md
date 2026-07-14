@@ -1,1 +1,0 @@
-# bal-lekarza-28
