@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Bal Lekarza</title>
+  <desc id="desc">Elegancki monogram BL w złotej ramie.</desc>
+  <defs>
+    <linearGradient id="paper" x1="74" x2="438" y1="66" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fffdfa"/>
+      <stop offset="0.58" stop-color="#fff8eb"/>
+      <stop offset="1" stop-color="#f4ecd9"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="91" x2="422" y1="89" y2="429" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f4df9a"/>
+      <stop offset="0.48" stop-color="#c7a24a"/>
+      <stop offset="1" stop-color="#8d6d25"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#paper)"/>
+  <path d="M108 104h296c18 0 32 14 32 32v240c0 18-14 32-32 32H108c-18 0-32-14-32-32V136c0-18 14-32 32-32Z" fill="#ffffff" opacity=".62"/>
+  <path d="M126 126h260c16 0 28 12 28 28v204c0 16-12 28-28 28H126c-16 0-28-12-28-28V154c0-16 12-28 28-28Z" fill="none" stroke="url(#gold)" stroke-width="18"/>
+  <path d="M111 340c74-42 132-18 188-45 51-24 91-31 121-11" fill="none" stroke="#8aa68a" stroke-width="16" stroke-linecap="round" opacity=".72"/>
+  <path d="M98 190c52-36 98-27 143-52 42-24 89-24 166 10" fill="none" stroke="#e79b83" stroke-width="14" stroke-linecap="round" opacity=".72"/>
+  <text x="256" y="303" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="142" font-weight="800" fill="#10235f">BL</text>
+  <circle cx="392" cy="360" r="14" fill="#e79b83"/>
+</svg>

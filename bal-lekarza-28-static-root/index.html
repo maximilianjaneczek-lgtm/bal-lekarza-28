@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f2e7">
+    <title>Bal Lekarza 2028</title>
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="shell">
+      <section id="auth-screen" class="auth-screen">
+        <div class="hero">
+          <img src="assets/hero-texture.png" alt="">
+          <div class="hero-copy">
+            <span class="crest">BL</span>
+            <p class="eyebrow">Bal Lekarza 2028</p>
+            <h1>Bal Lekarza 2028</h1>
+            <p>Elegancki panel uczestnika: zapisy, platnosci, dieta, transport, stoliki i infopak.</p>
+          </div>
+        </div>
+
+        <div class="auth-card">
+          <div class="tabs">
+            <button class="tab active" type="button" data-auth-tab="login">Logowanie</button>
+            <button class="tab" type="button" data-auth-tab="register">Zapis</button>
+          </div>
+
+          <form id="login-form" class="auth-form">
+            <label>Email<input name="email" type="email" autocomplete="email" required></label>
+            <label>Haslo<input name="password" type="password" autocomplete="current-password" required></label>
+            <button class="primary" type="submit">Wejdz do aplikacji</button>
+            <p class="hint">Logowanie obsluguje Supabase. Hasla nie ida przez Render ani GitHub.</p>
+          </form>
+
+          <form id="register-form" class="auth-form hidden">
+            <div class="grid two">
+              <label>Imie i nazwisko<input name="name" autocomplete="name" required></label>
+              <label>Email<input name="email" type="email" autocomplete="email" required></label>
+            </div>
+            <div class="grid two">
+              <label>Telefon<input name="phone" autocomplete="tel"></label>
+              <label>Haslo<input name="password" type="password" autocomplete="new-password" minlength="10" required></label>
+            </div>
+            <div class="grid three">
+              <label>Numer albumu<input name="album_number" autocomplete="off" required></label>
+              <label>Grupa dziekanska<input name="dean_group" placeholder="np. 12A"></label>
+              <label>Dieta
+                <select name="diet">
+                  <option value="standard">Standard</option>
+                  <option value="gf">Bezglutenowa</option>
+                  <option value="vegan">Weganska</option>
+                </select>
+              </label>
+            </div>
+            <div class="grid two">
+              <label>Gosc absolwenta<input name="companion_name" placeholder="Opcjonalnie"></label>
+              <label>Dieta goscia
+                <select name="companion_diet">
+                  <option value="standard">Standard</option>
+                  <option value="gf">Bezglutenowa</option>
+                  <option value="vegan">Weganska</option>
+                </select>
+              </label>
+            </div>
+            <label>Transport
+              <select name="transport_mode">
+                <option value="none">Nie potrzebuje transportu</option>
+                <option value="organized">Transport zorganizowany</option>
+                <option value="own">Transport wlasny</option>
+              </select>
+            </label>
+            <label>Preferencje usadzenia<textarea name="seating_preference" rows="2"></textarea></label>
+            <label class="check"><input name="terms" type="checkbox" required><span>Akceptuje regulamin i informacje RODO.</span></label>
+            <button class="primary" type="submit">Utworz konto i dopisz do listy</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="app-screen" class="app-screen hidden">
+        <header class="topbar">
+          <div class="brand">
+            <span class="crest small">BL</span>
+            <div>
+              <strong data-site="eventName">Bal Lekarza 2028</strong>
+              <span data-site="subtitle">Konto uczestnika, platnosci i infopak</span>
+            </div>
+          </div>
+          <nav>
+            <button class="nav active" type="button" data-view="dashboard">Start</button>
+            <button class="nav" type="button" data-view="info">Infopak</button>
+            <button class="nav" type="button" data-view="seating">Stoliki</button>
+            <button class="nav" type="button" data-view="travel">Dojazd</button>
+            <button class="nav admin-only hidden" type="button" data-view="admin">Admin</button>
+          </nav>
+          <button id="logout-button" class="ghost" type="button">Wyloguj</button>
+        </header>
+
+        <main>
+          <section id="view-dashboard" class="view active">
+            <div class="welcome band">
+              <div>
+                <p class="eyebrow">Panel uczestnika</p>
+                <h2 id="welcome-title">Dobry wieczor</h2>
+                <p id="welcome-text">Tu sprawdzisz najwazniejsze informacje o balu.</p>
+              </div>
+              <div id="status-strip" class="status-strip"></div>
+            </div>
+            <div class="columns">
+              <article class="panel">
+                <h3>Platnosci i formalnosci</h3>
+                <div id="payment-summary" class="summary"></div>
+              </article>
+              <article class="panel">
+                <h3>Miejsce, dieta i transport</h3>
+                <div id="my-details" class="summary"></div>
+              </article>
+              <article class="panel">
+                <h3>Moje dane</h3>
+                <form id="profile-form" class="compact">
+                  <label>Telefon<input name="phone"></label>
+                  <label>Dieta
+                    <select name="diet">
+                      <option value="standard">Standard</option>
+                      <option value="gf">Bezglutenowa</option>
+                      <option value="vegan">Weganska</option>
+                    </select>
+                  </label>
+                  <label>Transport
+                    <select name="transport_mode">
+                      <option value="none">Nie potrzebuje transportu</option>
+                      <option value="organized">Transport zorganizowany</option>
+                      <option value="own">Transport wlasny</option>
+                    </select>
+                  </label>
+                  <label>Preferencje usadzenia<textarea name="seating_preference" rows="2"></textarea></label>
+                  <button class="secondary" type="submit">Zapisz moje dane</button>
+                </form>
+              </article>
+            </div>
+          </section>
+
+          <section id="view-info" class="view">
+            <div class="band">
+              <p class="eyebrow">Infopak</p>
+              <h2>Najwazniejsze informacje</h2>
+              <p id="infopack-intro"></p>
+            </div>
+            <div class="columns two">
+              <article class="panel">
+                <h3>Harmonogram</h3>
+                <div id="schedule-list" class="timeline"></div>
+              </article>
+              <article class="panel">
+                <h3>Sekcje infopaku</h3>
+                <div id="section-list" class="section-list"></div>
+              </article>
+            </div>
+          </section>
+
+          <section id="view-seating" class="view">
+            <div class="band">
+              <p class="eyebrow">Stoliki</p>
+              <h2>Uklad sali</h2>
+              <p id="seating-note"></p>
+            </div>
+            <div id="table-search-wrap" class="search-row">
+              <input id="seat-search" placeholder="Szukaj po imieniu, grupie, stole albo diecie">
+            </div>
+            <div id="tables-view" class="tables"></div>
+          </section>
+
+          <section id="view-travel" class="view">
+            <div class="band">
+              <p class="eyebrow">Dojazd</p>
+              <h2 data-site="venueName">Bialy Dom</h2>
+              <p data-site="venueAddress">ul. Karola Darwina 50, 44-177 Paniowki</p>
+              <a id="map-link" class="primary link" target="_blank" rel="noreferrer">Otworz mape</a>
+            </div>
+            <div class="columns two">
+              <article class="panel"><h3>Transport zorganizowany</h3><p id="organized-transport"></p></article>
+              <article class="panel"><h3>Transport wlasny</h3><p id="own-transport"></p></article>
+            </div>
+          </section>
+
+          <section id="view-admin" class="view">
+            <div class="band">
+              <p class="eyebrow">Panel administratora</p>
+              <h2>Kontrola balu</h2>
+              <p id="admin-note">Statystyki, lista uczestnikow, tresci i backup.</p>
+            </div>
+            <div id="admin-stats" class="stats"></div>
+            <div class="columns two">
+              <article class="panel">
+                <h3>Edycja strony</h3>
+                <form id="site-form" class="compact">
+                  <label>Nazwa wydarzenia<input name="eventName"></label>
+                  <label>Podtytul<input name="subtitle"></label>
+                  <label>Tekst powitalny<textarea name="heroCopy" rows="3"></textarea></label>
+                  <div class="grid two">
+                    <label>Kolor glowny<input name="primary" type="color"></label>
+                    <label>Tlo<input name="background" type="color"></label>
+                  </div>
+                  <label class="check"><input name="seatingVisible" type="checkbox"><span>Pokaz uczestnikom podglad stolikow</span></label>
+                  <label>Infopak intro<textarea name="infopackIntro" rows="4"></textarea></label>
+                  <label>Harmonogram<textarea name="scheduleText" rows="7" placeholder="19:00 | Rozpoczecie"></textarea></label>
+                  <label>Sekcje infopaku<textarea name="sectionsText" rows="7" placeholder="Tytul | Tresc"></textarea></label>
+                  <button class="primary" type="submit">Zapisz wyglad i tresci</button>
+                </form>
+              </article>
+              <article class="panel">
+                <h3>Narzedzia</h3>
+                <div class="toolbox">
+                  <button id="reload-button" class="secondary" type="button">Odswiez dane</button>
+                  <button id="export-json-button" class="secondary" type="button">Pobierz backup JSON</button>
+                  <button id="export-csv-button" class="secondary" type="button">Pobierz liste CSV</button>
+                  <button id="auto-seat-button" class="secondary" type="button">Auto usadzenie pustych miejsc</button>
+                </div>
+                <p class="hint">Backup JSON pobiera dane z Supabase do pliku na komputer.</p>
+              </article>
+            </div>
+            <article class="panel wide">
+              <h3>Uczestnicy</h3>
+              <div class="table-tools">
+                <input id="admin-search" placeholder="Szukaj uczestnika, emaila, grupy, albumu">
+              </div>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Osoba</th>
+                      <th>Album/grupa</th>
+                      <th>Platnosci</th>
+                      <th>Miejsce</th>
+                      <th>Dieta/transport</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="participants-body"></tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        </main>
+      </section>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  </body>
+</html>
